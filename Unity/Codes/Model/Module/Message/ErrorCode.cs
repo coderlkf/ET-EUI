@@ -16,14 +16,16 @@ namespace ET
 
         public const int ERR_NetWorkError = 200002; // 网络错误
 
-        public const int Err_LoginInfoError = 200003; // 登录信息错误
+        public const int Err_LoginInfoIsNull = 200003; // 登录信息错误
 
-        public const int Err_AccountNameError = 200004; // 账号不符合规则
+        public const int Err_AccountNameFormError = 200004; // 账号格式错误
 
-        public const int Err_PasswordError = 200005; // 密码不符合规则
+        public const int Err_PasswordFormError = 200005; // 密码格式错误
 
-        public const int Err_PasswordUnPassError = 200006; // 密码错误
+        public const int Err_LoginPasswordError = 200006; // 密码错误
 
-        public const int Err_AccountUnEnableError = 200007; // 账号被封禁
+        public const int Err_AccountInBlackListError = 200007; // 账号被封禁
+
+        public const int Err_RequestRepeatedly = 200008; // 请求重复
     }
 }
