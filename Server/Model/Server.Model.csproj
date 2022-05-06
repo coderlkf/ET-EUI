@@ -26,6 +26,8 @@
       <Link>Core\%(RecursiveDir)%(FileName)%(Extension)</Link>
     </Compile>
 
+    <Compile Include="..\..\Unity\Codes\Model\Demo\Role\RoleInfo.cs" Link="Demo\Role\RoleInfo.cs" />
+
     <Compile Include="..\..\Unity\Codes\Model\Demo\ServerInfo\ServerInfo.cs" Link="Demo\ServerInfo\ServerInfo.cs" />
 
     <Compile Include="..\..\Unity\Codes\Model\Demo\Unit\UnitType.cs">
@@ -117,5 +119,8 @@
     <ProjectReference Include="..\..\ThirdParty\ETTask\ETTask.csproj" />
     <ProjectReference Include="..\..\ThirdParty\ShareLib\ShareLib.csproj" />
     <ProjectReference Include="..\..\ThirdParty\UnityEngine\UnityEngine.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Demo\Role\" />
   </ItemGroup>
 </Project>

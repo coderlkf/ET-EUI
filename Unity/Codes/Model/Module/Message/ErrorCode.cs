@@ -28,5 +28,7 @@ namespace ET
 
         public const int Err_RequestRepeatedly = 200008; // 请求重复
         public const int Err_TokenError = 200009; // Token 错误
+        public const int ERR_RoleNameEmptyError = 200010; // 角色名为空
+        public const int ERR_RoleNameExist = 200011; // 角色名已存在
     }
 }

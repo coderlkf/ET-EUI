@@ -13,6 +13,7 @@ namespace ET
         public const int AccountLogin = 8;  // 账户登录携程锁
         public const int LoginCenterLock = 8;  // 登录中心
         public const int GateLoginLock = 9;
+        public const int CreateRole = 10;
 
         public const int Max = 100; // 这个必须最大
     }

@@ -1,5 +1,10 @@
 ﻿namespace ET
 {
+    public enum RoleState
+    {
+        Normal = 0,
+        Freeze = 1, // 冻结状态
+    }
     public class RoleInfo : Entity, IAwake
     {
         public string Name;
