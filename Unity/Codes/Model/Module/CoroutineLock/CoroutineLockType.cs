@@ -10,7 +10,9 @@ namespace ET
         public const int DB = 5;
         public const int Resources = 6;
         public const int ResourcesLoader = 7;
-        public const int AccountLogin = 8;  // 账户登录携程所
+        public const int AccountLogin = 8;  // 账户登录携程锁
+        public const int LoginCenterLock = 8;  // 登录中心
+        public const int GateLoginLock = 9;
 
         public const int Max = 100; // 这个必须最大
     }

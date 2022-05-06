@@ -22,7 +22,7 @@
 
         public static async ETTask TimeOutTokenRemove(this TokenComponent self, long accountId, string token)
         {
-            await TimerComponent.Instance.WaitAsync(36000000);
+            await TimerComponent.Instance.WaitAsync(600000);
 
             var onlineToken = self.Get(accountId);
             if (string.IsNullOrEmpty(onlineToken) && onlineToken.Equals(token))

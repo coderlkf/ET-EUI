@@ -27,5 +27,6 @@ namespace ET
         public const int Err_AccountInBlackListError = 200007; // 账号被封禁
 
         public const int Err_RequestRepeatedly = 200008; // 请求重复
+        public const int Err_TokenError = 200009; // Token 错误
     }
 }

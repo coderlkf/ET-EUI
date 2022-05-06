@@ -4,7 +4,6 @@ using System.Text.RegularExpressions;
 
 namespace ET
 {
-    [ActorMessageHandler]
     public class C2A_LoginAccountHandler : AMRpcHandler<C2A_LoginAccount, A2C_LoginAccount>
     {
         protected override async ETTask Run(Session session, C2A_LoginAccount request, A2C_LoginAccount response, Action reply)
@@ -46,13 +45,13 @@ namespace ET
                 session.DisconnectAsync().Coroutine();
                 return;
             }
-            if (!Regex.IsMatch(request.Password, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$"))
-            {
-                response.Error = ErrorCode.Err_PasswordFormError;
-                reply();
-                session.DisconnectAsync().Coroutine();
-                return;
-            }
+            //if (!Regex.IsMatch(request.Password, @"^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,16}$"))
+            //{
+            //    response.Error = ErrorCode.Err_PasswordFormError;
+            //    reply();
+            //    session.DisconnectAsync().Coroutine();
+            //    return;
+            //}
 
             // 防止同玩家同会话重复请求
             using (session.AddComponent<SessionLockingComponent>())
@@ -91,6 +90,28 @@ namespace ET
                         return;
                     }
                 }
+                var startSceneConfig = StartSceneConfigCategory.Instance.GetBySceneName(session.DomainZone(), "LoginCenter");
+                var loginCenterInstanceId = startSceneConfig.InstanceId;
+                var loginAccountResponse = (L2A_LoginAccountResponse)await ActorMessageSenderComponent.Instance.Call(loginCenterInstanceId, new A2L_LoginAccountRequest { AccountId = account.Id });
+                if (loginAccountResponse.Error != ErrorCode.ERR_Success)
+                {
+                    response.Error = loginAccountResponse.Error;
+                    reply();
+                    session.DisconnectAsync().Coroutine();
+                    account?.Dispose();
+                    return;
+                }
+
+                #region 顶号操作，提示已登录的玩家断开连接
+                var accountSessionInstanceId = session.DomainScene().GetComponent<AccountSessionsComponent>().Get(account.Id);
+                Session otherSession = Game.EventSystem.Get(accountSessionInstanceId) as Session;
+                otherSession?.Send(new A2C_Disconnect { Error = 0 });
+                otherSession?.DisconnectAsync().Coroutine();
+                session.DomainScene().GetComponent<AccountSessionsComponent>().Add(account.Id, session.InstanceId);
+                #endregion
+                // 定时删除会话组件
+                session.AddComponent<AccountCheckTimeOutComponent, long>(account.Id);
+
                 var token = $"{TimeHelper.ServerNow()}|{Guid.NewGuid()}";
 
                 var tokenComponent = session.DomainScene().GetComponent<TokenComponent>();
